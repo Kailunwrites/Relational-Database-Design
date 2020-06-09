@@ -1,0 +1,87 @@
+
+
+
+
+
+
+-- 1st join 
+SELECT 
+   l.name AS PRODUCT_NAME, 
+   l.barcode_id AS BAR_CODE,
+   i.item_id AS ITEM_ID,
+   i.vintage AS VINTAGE 
+FROM 
+    item  i, 
+    liquor l 
+WHERE 
+    1=1 
+    AND i.liquor_id = l.liquor_id 
+ORDER BY 
+     l.name 
+; 
+
+
+
+
+-- more useful join 
+SELECT 
+   l.name AS PRODUCT_NAME, 
+   l.barcode_id AS BAR_CODE,
+   i.item_id AS ITEM_ID,
+   i.vintage AS VINTAGE,
+   l.price AS PRICE 
+FROM 
+    item  i, 
+    liquor l 
+WHERE 
+    1=1 
+    AND i.liquor_id = l.liquor_id 
+ORDER BY 
+     l.price DESC  
+; 
+
+
+-- Biz question:  How many of each Product/liquor do we have an accounting of? 
+SELECT 
+   l.name AS PRODUCT_NAME, 
+   -- i.vintage AS VINTAGE,
+   COUNT(i.item_id)  AS INV_COUNT
+FROM 
+    item  i, 
+    liquor l 
+WHERE 
+    1=1 
+    AND i.liquor_id = l.liquor_id 
+GROUP BY 
+   l.name
+   -- i.vintage 
+ ORDER BY INV_COUNT DESC 
+; 
+
+
+-- Biz Query #1 
+SELECT 
+   c.first_name,
+   c.last_name, 
+   s.name, 
+   z.city_boro, 
+   s.store_id 
+FROM 
+    customer  c, 
+    store s,
+    customer_address a, 
+    zip_code z 
+WHERE 
+    1=1 
+    -- Join Conditions 
+    AND c.store_id = s.store_id 
+    AND c.address_id = a.address_id 
+    AND a.zip_code = z.code 
+    
+    -- Filter Conditions 
+    AND s.store_id = 2 
+    AND z.city_boro = 'Queens' 
+; 
+
+
+
